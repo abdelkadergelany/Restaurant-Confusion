@@ -1,9 +1,6 @@
 import React  from 'react';
-
-
-
-import { Card, CardImg, CardText, CardBody,
-    CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 
@@ -59,7 +56,19 @@ import { Card, CardImg, CardText, CardBody,
         
           if (props.dish != null)
             return(
+          <div className="container">
+            <div className="row">
+                    <Breadcrumb>
+                         <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>Menu</h3>
+                        <hr />
+                    </div>                
+                </div>
            <div className="row">
+
               <div  className="col-12 col-md-5 m-1" key={props.dish.id}>
                 <Card >
                     <CardImg top src={props.dish.image} alt={props.dish.name} />
@@ -71,9 +80,9 @@ import { Card, CardImg, CardText, CardBody,
                 </Card>
               </div>
                     
-                   <RenderComments  comment={props.dish.comments}/>
+                   <RenderComments  comment={props.comments}/>
           </div>
-              
+           </div>   
             );
         else
             return(
