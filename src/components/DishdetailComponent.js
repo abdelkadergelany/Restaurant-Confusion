@@ -53,9 +53,8 @@ class CommentForm extends Component {
   }
 
   handleSubmit(event) {
-    console.log("Current State is: " + JSON.stringify(this.state));
-    alert("Current State is: " + JSON.stringify(this.state));
-    //  event.preventDefault();
+    this.toggleModal();
+    this.props.addComment(this.props.dishId, event.rating, event.author, event.comment);
   }
 
   toggleModal() {
@@ -68,7 +67,7 @@ class CommentForm extends Component {
     return (
       <div className="container">
         <Button outline onClick={this.toggleModal}>
-          <i class="fa fa-pencil" aria-hidden="true"></i> Submit Comment
+          <i className="fa fa-pencil" aria-hidden="true"></i> Submit Comment
         </Button>
 
         <div className="row row-content">
@@ -161,12 +160,12 @@ class CommentForm extends Component {
 
 /*Commentform End */
 
-function RenderComments({ comment }) {
-  const comme = comment.map((cmt) => {
+function RenderComments({comments, addComment, dishId}) {
+  const comme = comments.map((cmt) => {
     return (
-      <div>
+      <div key={cmt.id}>
         <ul className="list-unstyled ">
-          <li key={cmt.id}>
+          <li >
             {" "}
             {cmt.comment} <br />
             {cmt.author}{" "}
@@ -181,7 +180,7 @@ function RenderComments({ comment }) {
     );
   });
 
-  if (comment != null)
+  if (comments != null)
     return (
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
@@ -218,9 +217,8 @@ const DishDetail = (props) => {
             </Card>
           </div>
           <div className=" col-md-6">
-            <RenderComments comment={props.comments} />
-
-            <CommentForm />
+            <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
+           <CommentForm dishId={props.dishId} addComment={props.addComment} />
           </div>
         </div>
       </div>
