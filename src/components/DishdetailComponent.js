@@ -1,5 +1,6 @@
 import React,{ Component } from "react";
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 import {
   Card,
@@ -230,7 +231,7 @@ const DishDetail = (props) => {
         <div className="row">
           <div className="col-12 col-md-5 m-1" key={props.dish.id}>
             <Card>
-              <CardImg top src={props.dish.image} alt={props.dish.name} />
+              <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
               <CardBody>
                 <CardTitle>{props.dish.name}</CardTitle>
                 <RenderDish dish={props.dish} />
