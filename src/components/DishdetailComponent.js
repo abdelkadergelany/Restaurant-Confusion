@@ -1,6 +1,7 @@
 import React,{ Component } from "react";
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 import {
   Card,
@@ -164,12 +165,18 @@ class CommentForm extends Component {
 /*Commentform End */
 
 function RenderComments({comments, postComment, dishId}) {
-  const comme = comments.map((cmt) => {
+         
+  const comme =  
+  comments.map((cmt) => {
     return (
+    <Stagger in>
       <div key={cmt.id}>
         <ul className="list-unstyled ">
+
+        <Fade in>
           <li >
             {" "}
+
             {cmt.comment} <br />
             {cmt.author}{" "}
             {new Intl.DateTimeFormat("en-US", {
@@ -178,10 +185,17 @@ function RenderComments({comments, postComment, dishId}) {
               day: "2-digit",
             }).format(new Date(Date.parse(cmt.date)))}{" "}
           </li>
+          </Fade> 
+    
         </ul>
       </div>
+       </Stagger>
     );
+     
   });
+
+
+
 
   if (comments != null)
     return (
@@ -230,6 +244,11 @@ const DishDetail = (props) => {
         </div>
         <div className="row">
           <div className="col-12 col-md-5 m-1" key={props.dish.id}>
+           <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
             <Card>
               <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
               <CardBody>
@@ -237,6 +256,7 @@ const DishDetail = (props) => {
                 <RenderDish dish={props.dish} />
               </CardBody>
             </Card>
+            </FadeTransform>
           </div>
           <div className=" col-md-6">
             <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id}/>
