@@ -55,9 +55,9 @@ class CommentForm extends Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
 
-  handleSubmit(event) {
+  handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(this.props.dishId, event.rating, event.author, event.comment);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   toggleModal() {
@@ -163,7 +163,7 @@ class CommentForm extends Component {
 
 /*Commentform End */
 
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, postComment, dishId}) {
   const comme = comments.map((cmt) => {
     return (
       <div key={cmt.id}>
@@ -239,8 +239,8 @@ const DishDetail = (props) => {
             </Card>
           </div>
           <div className=" col-md-6">
-            <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
-           <CommentForm dishId={props.dishId} addComment={props.addComment} />
+            <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id}/>
+           <CommentForm postComment={props.postComment} dishId={props.dish.id} />
           </div>
         </div>
       </div>
