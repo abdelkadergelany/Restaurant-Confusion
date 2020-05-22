@@ -32,10 +32,11 @@ class Contact extends Component {
 
 
    handleSubmit(values) {
+    let date = new Date().toISOString();
         console.log('Current State is: ' + JSON.stringify(values));
+        this.props.postFeedback(values,date);
         alert('Current State is: ' + JSON.stringify(values));
         this.props.resetFeedbackForm();
-        // event.preventDefault();
     }
     
 
